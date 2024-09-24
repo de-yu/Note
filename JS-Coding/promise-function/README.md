@@ -90,6 +90,35 @@ function allSettled(promises) {
 
 功能： 有一個成功即回傳 錯誤不回傳
 
+function any(promises) {
+
+  if (promises.length === 0) {
+    return Promise.resolve([])
+  }
+
+  let allPromises = promises.length;
+  let errors = []
+
+
+  return new Promise((resolve, reject) => {
+    for(let i=0;i<promises.length;i++){
+      promises[i].then((response) => {
+        resolve(response)
+      }).catch(err => {
+        errors[i] = err
+        allPromises--;
+
+        if(allPromises === 0) {
+          reject(new AggregateError(
+            'No Promise in Promise.any was resolved', 
+            errors
+          ))
+        }
+      })
+    }
+  })
+}
+
 ```
 
 ### Promise.race
