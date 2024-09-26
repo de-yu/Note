@@ -1,5 +1,19 @@
-## HTTp: HyperText Transfer Protocol
+## HTTP: HyperText Transfer Protocol
 
+### 輸入網址後瀏覽器如何運作
+```
+
+http://www.abc.com/index.html
+
+1. 從網址解析出主機名稱
+2. 使用 DNS 藉由主機名稱查詢出 IP
+3. 獲得端口號 80 port
+4. 建立 TCP 連接
+5. client 發送請求
+6. server 回應請求
+7. 關閉連接
+
+```
 
 ### Http 0.9
 ```
