@@ -16,11 +16,13 @@
 8. Moment 處理時間的含式庫
 9. Xstate 基於限狀態機理論 建構的狀態管理工具
 10. Cypress 前端 e2e 測試工
-11. storybook ui library
+11. storybook 建立專案 component ui document
 12. rollup-plugin-visualizer rollup 和 vite 視覺化 bundle 大小
 13. webpack-bundle-analyzer webpack 視覺化 bundle 大小
 14. husky 觸發 git 動作
 15. conventional-changelog-cli 使用 commit message 建立 changelog
+16. jsonwebtoken jwt 加解密和驗證
+17. jwt-decode jwt解密
 
 ### Vite
 
