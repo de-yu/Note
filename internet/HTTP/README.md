@@ -128,3 +128,40 @@ HTTP 1.0 的限制：
     效率提升有限：由於伺服器還是要依序回應請求，因此在實際應用中，HTTP 管道傳送的效能提升是有限的。HTTP/2 進一步改進了這一點，通過多路複用（Multiplexing）允許真正的並行傳送與回應。
 
 ```
+
+### Http Cache
+
+```
+
+Cache-control
+可帶多個參數使用逗號隔開
+
+1. max-age 
+cache 有效時間 max-age=20 代表會儲存20秒
+在network 傳輸上會顯示快取
+
+2. public, private
+
+定義：public 指令表示該資源可以被任何緩存系統存儲，包括瀏覽器、CDN、代理伺服器等。
+適用場景：適合那些可以被多個用戶共享的資源，例如：CSS 文件、JavaScript 文件、圖片、公共 API 響應等，這些資源通常對所有用戶都相同。
+
+定義：private 指令表示資源只能被單個用戶的緩存存儲，通常是瀏覽器緩存，不能被共享緩存（如代理伺服器、CDN 等）存儲。
+適用場景：適合那些為特定用戶量身定制的資源，或包含個人數據的資源，例如：用戶個人資料頁面、購物車信息、登錄後的動態數據等。
+
+3. no-store - 任何資料都不進行任何 cache
+4. no-cache - 資料能被 cache 但每次使用前都必須向 server 進行驗證
+
+etag 驗證
+
+是基於資源內容的唯一標識符，更加精確，可以捕捉到所有資源變化，即使是極小的變化。
+流程:
+在 server 回傳後帶入 etag
+client 端再重新打api時 瀏覽器會自動帶入 if-none-match
+server 端實作驗證機制 回傳 304 或 200
+
+Last-Modified 驗證
+server 回傳後自動帶入 Last-Modified
+client 端再重新打api時 瀏覽器會自動帶入 If-Modified-Since
+server 端實作驗證機制 回傳 304 或 200
+
+```

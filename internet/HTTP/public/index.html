@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Http</title>
+</head>
+<style>
+  div {
+    display: flex;
+    gap:"10px";
+  }
+ </style> 
+<body>
+  <h1>Http</h1>
+  
+  <div>
+    <Button id="cache-get"> cache-get </Button>
+    <Button id="cache-post"> cache-post </Button>
+    <Button id="cache-get-no-cache"> cache-get-no-cache </Button>
+  </div>
+  <script>
+    document.getElementById('cache-get').onclick = function() {
+      fetch('/cache', { method: 'GET' }).then(res => {
+        return res.json();
+      }).then(data => {
+        console.log(data);
+      })
+    }
+
+    document.getElementById('cache-post').onclick = function() {
+      fetch('/cache', { method: 'POST' }).then(res => {
+        return res.json();
+      }).then(data => {
+        console.log(data);
+      })
+    }
+
+    document.getElementById('cache-get-no-cache').onclick = function() {
+      fetch('/cache/auth', { method: 'GET' }).then(res => {
+        return res.json();
+      }).then(data => {
+        console.log(data);
+      })
+    }
+  </script>
+</body>
+</html>
