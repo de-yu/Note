@@ -165,3 +165,14 @@ client 端再重新打api時 瀏覽器會自動帶入 If-Modified-Since
 server 端實作驗證機制 回傳 304 或 200
 
 ```
+
+### Http cookie
+
+```
+
+使用 set-cookie 會使下次的請求 get post 都自動帶入這個 cookie
+max-age 設定當下多少時間後會失效 0 為刪除 cookie 單位(秒)
+Expires 設定固定時間消失
+httpOnly 代表不會被 document.cookie 存取到
+Secure 只通過被 https 加密後的請求
+```

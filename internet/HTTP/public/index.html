@@ -14,11 +14,15 @@
 <body>
   <h1>Http</h1>
   
-  <div>
+  <p>
     <Button id="cache-get"> cache-get </Button>
     <Button id="cache-post"> cache-post </Button>
     <Button id="cache-get-no-cache"> cache-get-no-cache </Button>
-  </div>
+  </p>
+  <p>
+    <Button id="cookie"> cookie </Button>
+    <Button id="get-cookie">docuement cookie </Button>
+  </p>
   <script>
     document.getElementById('cache-get').onclick = function() {
       fetch('/cache', { method: 'GET' }).then(res => {
@@ -42,6 +46,18 @@
       }).then(data => {
         console.log(data);
       })
+    }
+
+    document.getElementById('cookie').onclick = function() {
+      fetch('/cookie', { method: 'GET' }).then(res => {
+        return res.json();
+      }).then(data => {
+        console.log(data);
+      })
+    }
+
+    document.getElementById('get-cookie').onclick = function() {
+      console.log(document.cookie)
     }
   </script>
 </body>
