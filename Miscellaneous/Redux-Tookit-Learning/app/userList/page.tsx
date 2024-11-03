@@ -1,9 +1,8 @@
 'use client'
 import React from "react";
-import userApi, { useGetUserListQuery } from "@/lib/api/UserApi";
+import { useGetUserListQuery } from "@/lib/api/UserApi";
 import { useSelector } from "@/lib/redux/index";
 import Link from 'next/link';
-import { useDispatch } from "@/lib/redux/index";
 import { selectUserList } from '@/lib/redux/slices/UserSlice';
 import { map } from "lodash";
 

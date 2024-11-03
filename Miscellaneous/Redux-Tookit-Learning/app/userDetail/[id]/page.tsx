@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 export default function userDetail() {
 
   const searchParams = useParams();
-  const userDetail = useSelector(state => selectUserDetail(state, searchParams.id as string));
+  const userDetail = useSelector(state => selectUserDetail(state, {id: searchParams.id as string}));
   const userList = useSelector(selectUserList)
 
   useGetUserListQuery()

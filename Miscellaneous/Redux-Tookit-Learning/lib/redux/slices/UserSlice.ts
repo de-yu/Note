@@ -4,11 +4,17 @@ import { ReduxState } from '@/lib/redux/index'
 import { UserDetailPayload, UserDetail, UserList } from '@/lib/api/types';
 
 interface UserState {
-  list: number[];
+  list: UserList;
+  detail:UserDetail;
 }
 
 const initialState: UserState = {
-  list: []
+  list: [],
+  detail: {
+    id: '0',
+    name: '',
+    message: ''
+  }
 };
 
 export const userSlice = createSlice({
@@ -17,31 +23,27 @@ export const userSlice = createSlice({
   reducers: {},
 })
 
-export const selectUserList = createSelector(
-  (state: ReduxState) => userApi.endpoints.getUserList.select()(state)?.data,
-  list => {
-    const init: UserList = []
-    if( list !== undefined) {
-      return list
+export const selectUserList = createSelector([
+  (state: ReduxState)  => state.user.list,
+
+  (state: ReduxState) => userApi.endpoints.getUserList.select()(state)?.data],
+  (list, apiList) => {
+    if( apiList !== undefined) {
+      return apiList
     }
-    return init
+    return list
   }
 )
 
 export const selectUserDetail = createSelector([
-  (state: ReduxState)  => state,
-  (state, id: string) => userApi.endpoints.getUserDetail.select({id})(state)?.data,
+  (state: ReduxState)  => state.user.detail,
+  (state, params: UserDetailPayload) => userApi.endpoints.getUserDetail.select(params)(state)?.data,
 ],
   (state, detail) => {
-    const init: UserDetail = {
-      id: '0',
-      name: '',
-      message: ''
-    }
     if( detail !== undefined) {
       return detail
     }
-    return init
+    return state
   }
 )
 
