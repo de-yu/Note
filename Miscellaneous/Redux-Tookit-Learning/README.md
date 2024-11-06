@@ -60,4 +60,19 @@ selector 中透過  userApi.endpoints.getUserList.select()(state)?.data
 
 ```
 
-### \userDetail\[id]\page.tsx
+### userDetail\[id]\page.tsx
+
+```
+
+rtk 快取的使用方法
+
+lib\api\UserApi.ts
+
+透過 providesTags 設定好要使用的 tag
+在 query 類動作中設定 providesTags
+在 mutation 動作中設定 invalidatesTags
+
+若進行 mutation 後有被設定 providesTags 有被設定到 invalidatesTags
+query 會自動重打
+
+```
