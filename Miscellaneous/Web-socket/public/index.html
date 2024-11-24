@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket with Express</title>
+</head>
+<body>
+    <h2>WebSocket Client with Express</h2>
+    <button id="sendMessage">Send Message</button>
+    <p id="serverResponse">Waiting for server response...</p>
+
+    <script>
+        // Establish a WebSocket connection
+        const socket = new WebSocket('ws://localhost:3000');
+
+        // When the connection is open
+        socket.onopen = () => {
+            console.log('Connected to the WebSocket server');
+        };
+
+        // When a message is received from the server
+        socket.onmessage = (event) => {
+            console.log('Message from server: ', event.data);
+            document.getElementById('serverResponse').innerText = 'Server says: ' + event.data;
+        };
+
+        // When the WebSocket connection is closed
+        socket.onclose = () => {
+            console.log('Disconnected from WebSocket server');
+        };
+
+        // When an error occurs
+        socket.onerror = (error) => {
+            console.error('WebSocket error: ', error);
+        };
+
+        // Send a message to the server when the button is clicked
+        document.getElementById('sendMessage').addEventListener('click', () => {
+            socket.send('Hello from the client');
+        });
+    </script>
+</body>
+</html>
