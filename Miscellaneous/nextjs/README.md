@@ -315,3 +315,97 @@ next/server 提供 Middleware 和 API Route 相關的工具，例如：
 用於 Lazy Loading（懶加載）組件，只在需要時載入，提升效能。
 ✅ 避免不必要的 JavaScript 載入。
 ✅ 支援 SSR & CSR 切換（ssr: false 表示只在客戶端載入）。
+
+### code split
+
+在 Next.js 中，Code Splitting（代碼拆分） 是指將應用程式的 JavaScript 拆分成較小的部分（chunks），以提高效能並加快頁面加載速度。Next.js 內建了 Code Splitting，主要分為以下幾種類型：  
+
+1. 頁面級別的 Code Splitting
+
+Next.js 會自動對 pages/ 資料夾內的每個頁面進行 按需加載（lazy loading）。
+只有當用戶請求某個頁面時，對應的 JavaScript 代碼才會被加載。
+✅ 示例
+
+pages/
+├── index.js       # 只有當訪問 `/` 時才會載入
+├── about.js       # 只有當訪問 `/about` 時才會載入
+└── contact.js     # 只有當訪問 `/contact` 時才會載入
+
+這樣，每個頁面只會載入自己需要的代碼，而不是一次載入整個應用程式，提升了初始加載速度。
+2. 動態導入（Dynamic Imports）
+
+3. 共享庫的 Code Splitting
+
+Next.js 會自動將 第三方庫（例如 React、Lodash） 拆分成獨立的 JavaScript Chunk，這樣不同頁面就能 共用相同的第三方庫，避免重複下載。
+
+✅ 查看拆分的 Bundle： 可以執行以下命令來檢查代碼拆分情況：
+
+next build
+
+然後執行：
+
+next analyze
+
+這樣可以可視化查看哪些 JavaScript 代碼被拆分成獨立的 chunk。  
+
+4. 使用 next/script 來延遲載入
+
+如果你的應用使用了外部腳本（如 Google Analytics、Facebook SDK），可以使用 next/script 來控制腳本的載入時機。
+✅ 示例
+
+strategy 參數有幾種選擇：
+
+    "beforeInteractive"：優先加載（預設）
+    "afterInteractive"：頁面互動後載入
+    "lazyOnload"：頁面完全載入後才加載
+
+這樣可以避免影響主要頁面的載入速度。
+結論
+
+Next.js 提供了多種 Code Splitting 方式來優化應用效能：
+
+    頁面級別的自動拆分（內建功能）。
+    動態導入（dynamic()）來延遲加載某些組件。
+    自動拆分共享的第三方庫，減少重複下載。
+    next/script 最佳化外部腳本的載入時機。
+
+這些方法可以大幅提高應用的效能，讓頁面載入更快，提升用戶體驗。🚀
+
+### _app.js、_document.js 和 _error.js
+
+1. _app.js（自訂 App 組件）
+
+_app.js 是 Next.js 自訂 App 組件（Custom App），它會包裹所有頁面，負責初始化頁面並保持狀態。
+
+📌 作用：
+
+    全域 Layout（如 Header、Footer）
+    狀態管理（Redux、Context API）
+    全域 CSS（引入 Tailwind、Bootstrap、SCSS 等）
+    全局 Providers（如 Auth、Theme）
+
+2. _document.js（自訂 Document）
+
+_document.js 是 Next.js 自訂 HTML 結構（Custom Document），它只會在 伺服器端渲染（SSR），用於修改 HTML <head>、<body> 及 lang 屬性等。
+
+📌 作用：
+
+    修改 HTML 結構
+    設定 lang、charset、viewport
+    引入字體（Google Fonts）
+    SSR 初始樣式（Styled-components、Emotion）
+
+
+3. _error.js（自訂錯誤頁面）
+
+Next.js 內建了一個錯誤頁面（pages/_error.js），它用於處理：
+
+    404（頁面不存在）
+    500（伺服器錯誤）
+    其他 HTTP 錯誤
+
+📌 作用：
+
+    自訂錯誤頁面 UI
+    回應不同 HTTP 錯誤代碼
+    日誌記錄（Sentry、Datadog）
